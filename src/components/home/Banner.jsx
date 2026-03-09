@@ -12,7 +12,7 @@ const Banner = () => {
           transition={{ duration: 0.6 }}
         >
           <span className="inline-block bg-primary/10 text-primary text-sm font-semibold px-4 py-1.5 rounded-full mb-4">
-            🚀 Learn Without Limits
+             Learn Without Limits
           </span>
           <h1 className="font-heading text-5xl md:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
             Unlock Your <span className="text-primary">Potential</span> With Expert Courses

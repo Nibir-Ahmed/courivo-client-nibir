@@ -1,9 +1,9 @@
 import React from 'react';
 
-const DashboardLayout = () => {
+const NotFound = () => {
   return (
     <div></div>
   );
 };
 
-export default DashboardLayout;
+export default NotFound;

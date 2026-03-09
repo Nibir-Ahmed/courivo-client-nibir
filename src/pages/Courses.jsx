@@ -1,9 +1,9 @@
 import React from 'react';
 
-const DashboardLayout = () => {
+const Courses = () => {
   return (
     <div></div>
   );
 };
 
-export default DashboardLayout;
+export default Courses;
