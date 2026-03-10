@@ -1,22 +1,45 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import axiosPublic from '../../api/axiosPublic';
+import LoadingSpinner from '../../components/shared/LoadingSpinner';
 import toast from 'react-hot-toast';
-
-const allCourses = [
-  { _id: '1', title: 'Complete Web Development', category: 'Development', price: 49, duration: '12h 30m', description: 'Learn HTML, CSS, JavaScript, React, Node.js and more.', imageUrl: 'https://images.unsplash.com/photo-1593720213428-28a5b9e94613?w=500', isFeatured: true },
-  { _id: '4', title: 'React JS from Scratch', category: 'Development', price: 44, duration: '10h 10m', description: 'Build modern web apps with React JS.', imageUrl: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=500', isFeatured: false },
-];
 
 const categories = ['Development', 'Design', 'Data Science', 'Marketing', 'Security'];
 
 const UpdateCourse = () => {
   const { id } = useParams();
-  const course = allCourses.find(c => c._id === id);
+  const navigate = useNavigate();
 
+  const { data: course, isLoading } = useQuery({
+    queryKey: ['course', id],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/courses/${id}`);
+      return res.data;
+    },
+  });
+
+  if (isLoading) return <LoadingSpinner />;
   if (!course) return <div className="text-center py-20 text-gray-500">Course not found.</div>;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    toast.success('Course updated successfully!');
+    const form = e.target;
+    const updated = {
+      title: form.title.value,
+      imageUrl: form.imageUrl.value,
+      price: parseFloat(form.price.value),
+      duration: form.duration.value,
+      category: form.category.value,
+      description: form.description.value,
+      isFeatured: form.isFeatured.checked,
+    };
+    try {
+      await axiosPublic.put(`/courses/${id}`, updated);
+      toast.success('Course updated successfully!');
+      navigate('/dashboard/my-courses');
+    } catch {
+      toast.error('Failed to update course.');
+    }
   };
 
   return (

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import axiosPublic from '../../api/axiosPublic';
 import toast from 'react-hot-toast';
 
 const categories = ['Development', 'Design', 'Data Science', 'Marketing', 'Security'];
@@ -24,10 +25,15 @@ const AddCourse = () => {
       ownerEmail: user.email,
       ownerPhoto: user.photoURL,
     };
-    console.log(course);
-    toast.success('Course added successfully!');
-    form.reset();
-    setLoading(false);
+    try {
+      await axiosPublic.post('/courses', course);
+      toast.success('Course added successfully!');
+      form.reset();
+    } catch {
+      toast.error('Failed to add course.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

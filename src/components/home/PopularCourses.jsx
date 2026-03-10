@@ -1,14 +1,8 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-
-const dummyCourses = [
-  { _id: '1', title: 'Complete Web Development', category: 'Development', price: 49, duration: '12h 30m', imageUrl: 'https://images.unsplash.com/photo-1593720213428-28a5b9e94613?w=500' },
-  { _id: '2', title: 'UI/UX Design Masterclass', category: 'Design', price: 39, duration: '8h 45m', imageUrl: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=500' },
-  { _id: '3', title: 'Data Science with Python', category: 'Data Science', price: 59, duration: '15h 20m', imageUrl: 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=500' },
-  { _id: '4', title: 'React JS from Scratch', category: 'Development', price: 44, duration: '10h 10m', imageUrl: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=500' },
-  { _id: '5', title: 'Digital Marketing Pro', category: 'Marketing', price: 34, duration: '6h 50m', imageUrl: 'https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=500' },
-  { _id: '6', title: 'Cybersecurity Essentials', category: 'Security', price: 54, duration: '11h 00m', imageUrl: 'https://images.unsplash.com/photo-1510511459019-5dda7724fd87?w=500' },
-];
+import { useQuery } from '@tanstack/react-query';
+import axiosPublic from '../../api/axiosPublic';
+import LoadingSpinner from '../shared/LoadingSpinner';
 
 const CourseCard = ({ course, index }) => (
   <motion.div
@@ -38,6 +32,16 @@ const CourseCard = ({ course, index }) => (
 );
 
 const PopularCourses = () => {
+  const { data: courses = [], isLoading } = useQuery({
+    queryKey: ['featuredCourses'],
+    queryFn: async () => {
+      const res = await axiosPublic.get('/courses/featured');
+      return res.data;
+    },
+  });
+
+  if (isLoading) return <LoadingSpinner />;
+
   return (
     <section className="py-20 bg-gray-50 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4">
@@ -51,9 +55,10 @@ const PopularCourses = () => {
           <p className="text-gray-500 dark:text-gray-400 mt-3 text-lg">Handpicked courses loved by thousands of learners</p>
         </motion.div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {dummyCourses.map((course, index) => (
-            <CourseCard key={course._id} course={course} index={index} />
-          ))}
+          {courses.length === 0
+            ? <p className="text-center col-span-3 text-gray-400">No featured courses yet.</p>
+            : courses.map((course, index) => <CourseCard key={course._id} course={course} index={index} />)
+          }
         </div>
         <div className="text-center mt-10">
           <Link to="/courses" className="btn-outline">See All Courses</Link>
