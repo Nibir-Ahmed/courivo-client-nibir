@@ -4,6 +4,7 @@ import WhyChooseUs from '../components/home/WhyChooseUs';
 import TopInstructors from '../components/home/TopInstructors';
 
 const Home = () => {
+  document.title = 'Courivo | Home';
   return (
     <main>
       <Banner />

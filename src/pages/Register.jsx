@@ -46,7 +46,7 @@ const Register = () => {
       toast.error('Google login failed.');
     }
   };
-
+  document.title = 'Courivo | Register';
   return (
     <section className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-dark px-4">
       <div className="w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-sm p-8">

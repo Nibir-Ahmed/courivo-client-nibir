@@ -38,7 +38,7 @@ const CourseDetails = () => {
       toast.error('Enrollment failed. Try again.');
     }
   };
-
+  document.title = `Courivo | ${course?.title || 'Course Details'}`;
   return (
     <section className="py-16 bg-gray-50 dark:bg-gray-900 min-h-screen">
       <div className="max-w-5xl mx-auto px-4">

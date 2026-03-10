@@ -20,7 +20,7 @@ const Courses = () => {
   });
 
   if (isLoading) return <LoadingSpinner />;
-
+  document.title = 'Courivo | All Courses';
   return (
     <section className="py-16 bg-gray-50 dark:bg-gray-900 min-h-screen">
       <div className="max-w-7xl mx-auto px-4">

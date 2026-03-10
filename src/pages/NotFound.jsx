@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const NotFound = () => {
+  document.title = 'Courivo | 404';
   return (
     <section className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-dark">
       <motion.div
