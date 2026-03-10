@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { BookOpen, PlusCircle, BookMarked, LogOut } from 'lucide-react';
+import Navbar from '../components/shared/Navbar';
 
 const DashboardLayout = () => {
   const { user, logout } = useAuth();
@@ -12,15 +13,19 @@ const DashboardLayout = () => {
   ];
 
   return (
-    <div className="min-h-screen flex bg-gray-50 dark:bg-gray-950">
+    
+    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-950">
+      <Navbar />
+      <div className="flex flex-1">
       <aside className="w-64 bg-white dark:bg-gray-900 border-r border-gray-100 dark:border-gray-800 flex flex-col">
+        
         <div className="p-6 border-b border-gray-100 dark:border-gray-800">
           <p className="font-heading font-bold text-lg text-gray-900 dark:text-white truncate">
             {user?.displayName || 'User'}
           </p>
           <p className="text-xs text-gray-400 truncate mt-1">{user?.email}</p>
         </div>
-
+        
         <nav className="flex-1 p-4 flex flex-col gap-1">
           {links.map(({ to, label, icon: Icon }) => (
             <NavLink
@@ -54,6 +59,7 @@ const DashboardLayout = () => {
       <main className="flex-1 p-8 overflow-y-auto">
         <Outlet />
       </main>
+      </div>
     </div>
   );
 };
