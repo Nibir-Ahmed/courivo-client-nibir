@@ -3,7 +3,7 @@ import { FaXTwitter, FaFacebook, FaLinkedin } from 'react-icons/fa6';
 
 const Footer = () => {
   return (
-    <footer className="bg-dark text-gray-400 font-body">
+    <footer className="bg-[#0D0D1A] text-gray-400 font-body">
       <div className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
         <div>
           <span className="font-heading font-bold text-2xl text-white">Courivo</span>
