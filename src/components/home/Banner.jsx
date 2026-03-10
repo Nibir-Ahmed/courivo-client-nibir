@@ -33,7 +33,7 @@ const Banner = () => {
           className="hidden md:block"
         >
           <img
-            src="https://i.ibb.co/your-banner-image"
+            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800"
             alt="Learning"
             className="w-full rounded-3xl object-cover shadow-2xl"
           />
